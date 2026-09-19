@@ -1,0 +1,48 @@
+@use "@angular/material" as mat;
+
+html {
+color-scheme: dark;
+  @include mat.theme((
+    color: mat.$magenta-palette,
+    typography: Roboto,
+    density: 0
+  ));
+}
+
+.btn-danger{
+  @include mat.button-overrides((
+    filled-container-color: #fd5d93,
+    filled-label-text-color: white,
+  ));
+}
+
+.btn-primary{
+   @include mat.button-overrides((
+    filled-container-color: #913f9e,
+    filled-label-text-color: white,
+  ));
+}
+
+.btn-secondary{
+  @include mat.button-overrides((
+    filled-container-color: #ff8d72,
+    filled-label-text-color: white,
+  ));
+  
+}
+
+.btn-info{
+  @include mat.button-overrides((
+    filled-container-color: #344675,
+    filled-label-text-color: white,
+  ));
+  
+}
+
+.btn-success{
+  @include mat.button-overrides((
+    filled-container-color: #1d8cf8,
+    filled-label-text-color: white,
+  ));
+}
+

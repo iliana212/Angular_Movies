@@ -1,0 +1,31 @@
+<app-listado-generico [listado]="peliculas">
+    <ng-container contenido>
+        <div class="peliculas-contenedor">
+            @for (pelicula of peliculas; track $index){
+            <div class="pelicula-contenedor">
+                <a [routerLink]="['/peliculas', pelicula.id]">
+                    @if (pelicula.poster){
+                    <img [src]="pelicula.poster" width="169" height="250" />
+                    }@else {
+                    <img src="default.jpg" width="169" height="250" />
+                    }
+                </a>
+                <p>
+                    <a [routerLink]="['/peliculas', pelicula.id]">{{pelicula.titulo}}</a>
+                </p>
+                <app-autorizado rol="admin">
+                    <ng-container autorizado>
+                        <div>
+                            <a mat-flat-button class="btn-info"
+                                [routerLink]="['/peliculas/editar', pelicula.id]">Editar</a>
+                            <button mat-flat-button type="button" class="btn-danger"
+                                (click)="borrar(pelicula.id)">Borrar</button>
+                        </div>
+                    </ng-container>
+                </app-autorizado>
+            </div>
+            }
+        </div>
+    </ng-container>
+
+</app-listado-generico>

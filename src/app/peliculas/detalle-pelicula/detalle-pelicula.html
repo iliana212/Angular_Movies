@@ -1,0 +1,57 @@
+@if (pelicula){
+    <h2>{{pelicula.titulo}} ({{pelicula.fechaLanzamiento.getFullYear()}})</h2>
+
+    <mat-chip-listbox>
+        @for(genero of pelicula.generos; track $index){
+            <mat-chip [routerLink]="['/peliculas/filtrar']" [queryParams]="{generoId: genero.id}">{{genero.nombre}}</mat-chip>
+        }
+    </mat-chip-listbox>
+
+    <h4>Fecha de Lanzamiento: {{pelicula.fechaLanzamiento.toDateString()}}</h4>
+    <h5>Promedio: {{pelicula.promedioVoto.toFixed(1)}} | 
+        Tu voto: <app-rating [maximoRating]="5" (votado)="puntuar($event)" [ratingSeleccionado]="pelicula.votoUsuario"></app-rating>
+    </h5>
+
+    <div style="display: flex;">
+        <span style="display: inline-block;margin-right: 2rem;">
+            <h4>Póster</h4>
+            <img [src]="pelicula.poster" style="width: 225px;height: 315px;" />
+        </span>
+        @if (pelicula.trailer){
+            <div>
+                <h4>Trailer</h4>
+                <iframe width="565" height="315" [src]="trailerURL" [frameBorder]="0" 
+                    allow="accelerometer;autoplay;encrypted-media;gysroscope;picture-in-picture;allowfullscreen"></iframe>
+            </div>
+        }
+    </div>
+
+    @if (pelicula.actores){
+        <div style="margin-top: 2rem;">
+            <h4>Actores</h4>
+            <div style="display: flex; flex-direction: column;">
+                @for(actor of pelicula.actores; track $index){
+                    <div style="margin-bottom: 2px;">
+                        <img [src]="actor.foto" style="width: 50px;vertical-align: middle;" />
+                        <span style="display: inline-block;width: 200px;margin-left: 1rem;">
+                            {{actor.nombre}} <br /> [{{actor.personaje}}]
+                        </span>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    @if(coordenadas.length > 0){
+        <div style="margin-top: 2rem;">
+            <h4>Móstrándose en los siguientes cines:</h4>
+            <app-mapa [soloLectura]="true" [coordenadasIniciales]="coordenadas"></app-mapa>
+        </div>
+    }
+
+
+
+}@else {
+    <app-cargando></app-cargando>
+}
+

@@ -1,0 +1,12 @@
+
+@if (!listado){
+    <app-cargando></app-cargando>
+}
+@else if (listado.length === 0){
+    <div>
+        <p>No hay elementos para mostrar</p>
+    </div>
+}
+@else{
+   <ng-content select="[contenido]"></ng-content>
+}

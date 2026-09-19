@@ -1,0 +1,8 @@
+<h2>Editar Cine</h2>
+
+@if (cine){
+    <app-mostrar-errores [errores]="errores"></app-mostrar-errores>
+    <app-formaulario-cine (formularioPosteo)="guardarCambios($event)" [modelo]="cine"></app-formaulario-cine>
+} @else {
+    <app-cargando></app-cargando>
+}

@@ -1,0 +1,20 @@
+mat-toolbar{
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--mat-sys-primary-container);
+}
+
+app-autorizado{
+    display: flex;
+}
+
+.espacio{
+    flex: 1 1 auto
+}
+
+.saludo{
+    font-size: 16px;
+    display: inline;
+}
