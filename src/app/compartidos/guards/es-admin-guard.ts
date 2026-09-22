@@ -11,5 +11,5 @@ export const esAdminGuard: CanActivateFn = (route, state) => {
   }
  
   router.navigate(['/login']);
-  return true;
+  return false;
 };

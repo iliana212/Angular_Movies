@@ -94,7 +94,26 @@ The app will be available at `http://localhost:4200` and reloads automatically w
 | `npm start` | Start the development server (`ng serve`) |
 | `npm run build` | Create a production build in `dist/` |
 | `npm run watch` | Rebuild on changes using the development configuration |
-| `npm test` | Run unit tests with Karma and Jasmine |
+| `npm test` | Run unit and integration tests with Karma and Jasmine |
+
+## Testing
+
+The project includes unit and integration tests (Jasmine + Karma) for its critical paths:
+
+- **Authentication**: `SeguridadService` (login, sign up, JWT, session expiration)
+- **HTTP interceptor**: attaches the `Bearer` token to every request
+- **Route guard**: `esAdminGuard`
+- **HTTP services**: `PeliculasService`, `GenerosService`
+- **Shared helpers**: query-param building, backend error extraction, form validators
+- **Forms and components**: validations, event emission, and integration flows (login, creating a genre)
+
+Run the suite:
+
+```bash
+npm test
+```
+
+Every push and pull request runs this same suite automatically via GitHub Actions (see `.github/workflows/tests.yml`).
 
 ## Related projects
 

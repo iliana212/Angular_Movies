@@ -15,57 +15,62 @@ export class SeguridadService {
   private readonly llaveToken = 'token';
   private readonly llaveExpiracion = 'token-expiracion';
 
-  obtenerUsuariosPaginado(paginacion: PaginacionDTO): Observable<HttpResponse<UsuarioDTO[]>>{
+  obtenerUsuariosPaginado(paginacion: PaginacionDTO): Observable<HttpResponse<UsuarioDTO[]>> {
     let queryParams = construirQueryParams(paginacion);
-    return this.http.get<UsuarioDTO[]>(`${this.urlBase}/ListadoUsuarios`, {params: queryParams, observe: 'response'});
+    return this.http.get<UsuarioDTO[]>(`${this.urlBase}/ListadoUsuarios`, { params: queryParams, observe: 'response' });
   }
 
-  registrar(credenciales: CredencialesUsuarioDTO): Observable<RespuestaAutenticacionDTO>{
+  registrar(credenciales: CredencialesUsuarioDTO): Observable<RespuestaAutenticacionDTO> {
     return this.http.post<RespuestaAutenticacionDTO>(`${this.urlBase}/registrar`, credenciales)
-    .pipe(
-      tap(respuestaAutenticacion => this.guardarToken(respuestaAutenticacion))
-    )
+      .pipe(
+        tap(respuestaAutenticacion => this.guardarToken(respuestaAutenticacion))
+      )
   }
 
-  login(credenciales: CredencialesUsuarioDTO): Observable<RespuestaAutenticacionDTO>{
+  login(credenciales: CredencialesUsuarioDTO): Observable<RespuestaAutenticacionDTO> {
     return this.http.post<RespuestaAutenticacionDTO>(`${this.urlBase}/login`, credenciales)
-    .pipe(
-      tap(respuestaAutenticacion => this.guardarToken(respuestaAutenticacion))
-    )
+      .pipe(
+        tap(respuestaAutenticacion => this.guardarToken(respuestaAutenticacion))
+      )
   }
 
-  hacerAdmin(email:string){
-    return this.http.post(`${this.urlBase}/HacerAdmin`, {email});
+  hacerAdmin(email: string) {
+    return this.http.post(`${this.urlBase}/HacerAdmin`, { email });
   }
 
-  removerAdmin(email:string){
-    return this.http.post(`${this.urlBase}/RemoverAdmin`, {email});
+  removerAdmin(email: string) {
+    return this.http.post(`${this.urlBase}/RemoverAdmin`, { email });
   }
 
-  guardarToken(respuestaAutenticacion: RespuestaAutenticacionDTO){
+  guardarToken(respuestaAutenticacion: RespuestaAutenticacionDTO) {
     localStorage.setItem(this.llaveToken, respuestaAutenticacion.token);
     localStorage.setItem(this.llaveExpiracion, respuestaAutenticacion.expiracion.toString());
   }
 
-  obtenerCampoJWT(campo: string): string{
+  obtenerCampoJWT(campo: string): string {
     const token = localStorage.getItem(this.llaveToken);
-    if(!token){
+    if (!token) {
       return '';
     }
 
-    var dataToken = JSON.parse(atob(token.split('.')[1]));
-    return dataToken[campo];
+    try {
+      const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+      const dataToken = JSON.parse(atob(base64));
+      return dataToken[campo];
+    } catch {
+      return '';
+    }
   }
 
-  estaLogueado(): boolean{
+  estaLogueado(): boolean {
     const token = localStorage.getItem(this.llaveToken);
-    if(!token){
+    if (!token) {
       return false;
     }
 
     const expiracion = localStorage.getItem(this.llaveExpiracion)!;
     const expiracionFecha = new Date(expiracion);
-    if(expiracionFecha <= new Date()){
+    if(isNaN(expiracionFecha.getTime()) || expiracionFecha <= new Date()){
       this.logout();
       return false;
     }
@@ -73,21 +78,21 @@ export class SeguridadService {
     return true;
   }
 
-  logout(){
+  logout() {
     localStorage.removeItem(this.llaveToken);
     localStorage.removeItem(this.llaveExpiracion);
   }
 
-  obtenerRol(): string{
+  obtenerRol(): string {
     const esAdmin = this.obtenerCampoJWT('esadmin');
-    if (esAdmin){
+    if (esAdmin) {
       return 'admin';
-    }else{
+    } else {
       return '';
-    }    
+    }
   }
 
-  obtenerToken(): string | null{
+  obtenerToken(): string | null {
     return localStorage.getItem(this.llaveToken);
   }
 }

@@ -92,7 +92,26 @@ La aplicación estará disponible en `http://localhost:4200` y se recarga autom�
 | `npm start` | Inicia el servidor de desarrollo (`ng serve`) |
 | `npm run build` | Genera el build de producción en `dist/` |
 | `npm run watch` | Recompila automáticamente con la configuración de desarrollo |
-| `npm test` | Ejecuta las pruebas unitarias con Karma y Jasmine |
+| `npm test` | Ejecuta las pruebas unitarias e integrales con Karma y Jasmine |
+
+## Pruebas
+
+El proyecto incluye pruebas unitarias e integrales (Jasmine + Karma) para sus rutas críticas:
+
+- **Autenticación**: `SeguridadService` (login, registro, JWT, expiración de sesión)
+- **Interceptor HTTP**: adjunta el token `Bearer` a cada petición
+- **Guard de rutas**: `esAdminGuard`
+- **Servicios HTTP**: `PeliculasService`, `GenerosService`
+- **Funciones compartidas**: construcción de query params, extracción de errores del backend, validadores de formularios
+- **Formularios y componentes**: validaciones, emisión de eventos y flujos de integración (login, alta de género)
+
+Ejecutar la suite:
+
+```bash
+npm test
+```
+
+Cada push y pull request corre esta misma suite automáticamente vía GitHub Actions (ver `.github/workflows/tests.yml`).
 
 ## Proyectos relacionados
 
