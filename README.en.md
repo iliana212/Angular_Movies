@@ -12,7 +12,13 @@ There is also a React version of this client: [React_Movies](https://github.com/
 
 > **Status:** actively in development.
 
-![Inicio](docs/filtro.png) ![Filtro](docs/pelicula.png) ![Detalle](docs/detalle.png) ![Actores](docs/generos.png)
+| Movie Filter | Genres Page |
+|---|---|
+| ![Inicio](docs/filtro.png) | ![Generos](docs/generos.png) |
+
+| Add Movie Page | Movie Details |
+|---|---|
+| ![Filtro](docs/pelicula.png) | ![Detalle](docs/detalle.png) |
 
 ## At a glance
 
