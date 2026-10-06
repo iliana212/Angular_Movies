@@ -10,7 +10,13 @@ Existe también una versión de este cliente en React: [React_Movies](https://gi
 
 > **Estado:** en desarrollo activo.
 
-![Inicio](docs/filtro.png) ![Filtro](docs/pelicula.png) ![Detalle](docs/detalle.png) ![Actores](docs/generos.png)
+| Buscador de Películas | Pantalla de Géneros |
+|---|---|
+| ![Inicio](docs/filtro.png) | ![Generos](docs/generos.png) |
+
+| Pantalla Crear Película | Detalle de Película |
+|---|---|
+| ![Filtro](docs/pelicula.png) | ![Detalle](docs/detalle.png) |
 
 ## En un vistazo
 
